@@ -31,6 +31,8 @@ public class FormAbout extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About");
+        setIconImage(
+            new javax.swing.ImageIcon(getClass().getResource("/Images/iconimg.png")).getImage());
         setLocationByPlatform(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

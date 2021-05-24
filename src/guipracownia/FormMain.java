@@ -92,6 +92,8 @@ public class FormMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pracownia");
+        setIconImage(
+            new javax.swing.ImageIcon(getClass().getResource("/Images/iconimg.png")).getImage());
         setLocationByPlatform(true);
         setResizable(false);
 
