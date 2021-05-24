@@ -326,7 +326,8 @@ public class FormMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenuLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLoadActionPerformed
-        try{
+        try
+        {
             JFileChooser j = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
             j.setFileFilter(filter);
@@ -340,7 +341,8 @@ public class FormMain extends javax.swing.JFrame {
             ButtonUsun.setEnabled(true);
 
             model.setRowCount(p.getLimitStanowisk());
-            for(int i=0; i<p.getLimitStanowisk(); i++){
+            for(int i=0; i<p.getLimitStanowisk(); i++)
+            {
                 Object[] dane = {i+1, 
                     p.getStanowisko(i).getProducent(),
                     p.getStanowisko(i).getMonitorRozdzielczosc(),
@@ -356,8 +358,14 @@ public class FormMain extends javax.swing.JFrame {
             this.TextFieldMonitor.setText("");
             this.TextFieldProducent.setText("");
             this.TextFieldZasilanie.setText("");
+            this.TextFieldCena.setEnabled(true);
+            this.TextFieldZasilanie.setEnabled(true);
+            this.TextFieldProducent.setEnabled(true);
+            this.TextFieldMonitor.setEnabled(true);
+            this.ButtonRefresh.setEnabled(true);
         }
-        catch(Exception ex){
+        catch(Exception ex)
+        {
             
         }
         
@@ -368,7 +376,8 @@ public class FormMain extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuLoadActionPerformed
 
     private void MenuLoadSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuLoadSerActionPerformed
-        try{
+        try
+        {
             JFileChooser j = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
             j.setFileFilter(filter);
@@ -382,7 +391,8 @@ public class FormMain extends javax.swing.JFrame {
             ButtonUsun.setEnabled(true);
 
             model.setRowCount(p.getLimitStanowisk());
-            for(int i=0; i<p.getLimitStanowisk(); i++){
+            for(int i=0; i<p.getLimitStanowisk(); i++)
+            {
                 Object[] dane = {i+1, 
                     p.getStanowisko(i).getProducent(),
                     p.getStanowisko(i).getMonitorRozdzielczosc(),
@@ -398,8 +408,14 @@ public class FormMain extends javax.swing.JFrame {
             this.TextFieldMonitor.setText("");
             this.TextFieldProducent.setText("");
             this.TextFieldZasilanie.setText("");
+            this.TextFieldCena.setEnabled(true);
+            this.TextFieldZasilanie.setEnabled(true);
+            this.TextFieldProducent.setEnabled(true);
+            this.TextFieldMonitor.setEnabled(true);
+            this.ButtonRefresh.setEnabled(true);
         }
-        catch(Exception ex){
+        catch(Exception ex)
+        {
             
         }
 
@@ -408,11 +424,13 @@ public class FormMain extends javax.swing.JFrame {
     private void MenuAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuAboutMouseClicked
 
         
-        if(this.about == null){
+        if(this.about == null)
+        {
             this.about = new FormAbout();
             this.about.setVisible(true);
         }
-        else{
+        else
+        {
             //this.about = null;
             this.about.dispose();
             this.about = new FormAbout();
@@ -427,23 +445,29 @@ public class FormMain extends javax.swing.JFrame {
         j.setFileFilter(filter);
         j.showSaveDialog(null);
 
-        try {
+        try 
+        {
             String nazwa = "";
             for(int i = j.getSelectedFile().toString().length()-4; i<j.getSelectedFile().toString().length(); i++)
             {
                 nazwa += j.getSelectedFile().toString().charAt(i);
             }
-            if(nazwa.equalsIgnoreCase(".txt")){
+            if(nazwa.equalsIgnoreCase(".txt"))
+            {
                 this.p.zapisz(j.getSelectedFile().toString());
             }
-            else{
+            else
+            {
                 this.p.zapisz(j.getSelectedFile().toString()+".txt");
             }
             
-        } catch (FileNotFoundException ex) {
+        } 
+        catch (FileNotFoundException ex) 
+        {
             //Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(Exception ex){
+        catch(Exception ex)
+        {
             
         }
   
@@ -457,26 +481,31 @@ public class FormMain extends javax.swing.JFrame {
         j.showSaveDialog(null);
 
         
-        try {
-        String nazwa = "";
-        for(int i = j.getSelectedFile().toString().length()-4; i<j.getSelectedFile().toString().length(); i++)
+        try 
         {
-            nazwa += j.getSelectedFile().toString().charAt(i);
-        }
-        if(nazwa.equalsIgnoreCase(".txt")){
-            this.p.zapiszSerial(j.getSelectedFile().toString());
-        }
-        else{
-            this.p.zapiszSerial(j.getSelectedFile().toString()+".txt");
-        }
+            String nazwa = "";
+            for(int i = j.getSelectedFile().toString().length()-4; i<j.getSelectedFile().toString().length(); i++)
+            {
+                nazwa += j.getSelectedFile().toString().charAt(i);
+            }
+            if(nazwa.equalsIgnoreCase(".txt")){
+                this.p.zapiszSerial(j.getSelectedFile().toString());
+            }
+            else
+            {
+                this.p.zapiszSerial(j.getSelectedFile().toString()+".txt");
+            }
 
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) 
+        {
             //Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_MenuSaveSerActionPerformed
 
     private void ButtonLimitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonLimitMouseClicked
-        if(isInteger(TextFieldLimit.getText()) && Integer.parseInt(TextFieldLimit.getText())>0){
+        if(isInteger(TextFieldLimit.getText()) && Integer.parseInt(TextFieldLimit.getText())>0)
+        {
 
             this.p = new Pracownia(Integer.parseInt(TextFieldLimit.getText()));
             TextFieldLimit.setEnabled(false);
@@ -485,7 +514,8 @@ public class FormMain extends javax.swing.JFrame {
             ButtonDodaj.setEnabled(true);
             ButtonUsun.setEnabled(true);
             //model.setRowCount(p.getLimitStanowisk());
-            for(int i=0; i<p.getLimitStanowisk(); i++){
+            for(int i=0; i<p.getLimitStanowisk(); i++)
+            {
                 Object[] dane = {i+1, 
                     p.getStanowisko(i).getProducent(),
                     p.getStanowisko(i).getMonitorRozdzielczosc(),
@@ -503,7 +533,8 @@ public class FormMain extends javax.swing.JFrame {
             this.TextFieldMonitor.setEnabled(true);
             this.ButtonRefresh.setEnabled(true);
         }
-        else{
+        else
+        {
             
         }
     }//GEN-LAST:event_ButtonLimitMouseClicked
@@ -531,33 +562,41 @@ public class FormMain extends javax.swing.JFrame {
         double cena = 0;
         boolean correctNumber1, correctNumber2, correctMonitor, correctProducent;
         correctNumber1 = correctNumber2 = correctMonitor = correctProducent = false;
-        if(!this.TextFieldProducent.getText().equals("")){
+        if(!this.TextFieldProducent.getText().equals(""))
+        {
             producent = this.TextFieldProducent.getText();
             correctProducent = true;
-            if(isInteger(this.TextFieldMonitor.getText())){
+            if(isInteger(this.TextFieldMonitor.getText()))
+            {
                 monitor = new Monitor(Integer.parseInt(this.TextFieldMonitor.getText()));
                 correctMonitor = true;
-                try{
+                try
+                {
                     zasilanie = Float.parseFloat(this.TextFieldZasilanie.getText());
                     correctNumber1 = true;
                 }
-                catch(NumberFormatException ex){
+                catch(NumberFormatException ex)
+                {
                     correctNumber1 = false;
                 }
                 
-                try{
+                try
+                {
                     cena = Double.parseDouble(this.TextFieldCena.getText());
                     correctNumber2 = true;
                 }
-                catch(NumberFormatException ex){
+                catch(NumberFormatException ex)
+                {
                     correctNumber2 = false;
                 }
             }
         }
        
-        if(correctMonitor == true && correctNumber1 == true && correctNumber2 == true && correctProducent == true){
+        if(correctMonitor == true && correctNumber1 == true && correctNumber2 == true && correctProducent == true)
+        {
             p.dodajStanowisko(new Desktop(zasilanie,cena,monitor,producent));
-            for(int i=0; i<p.getLimitStanowisk(); i++){
+            for(int i=0; i<p.getLimitStanowisk(); i++)
+            {
                 Object[] dane = {i+1, 
                     p.getStanowisko(i).getProducent(),
                     p.getStanowisko(i).getMonitorRozdzielczosc(),
@@ -579,10 +618,12 @@ public class FormMain extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonDodajMouseClicked
 
     private void ButtonUsunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonUsunMouseClicked
-        try{
+        try
+        {
             p.usunStanowisko(Tabela.getSelectedRow());
 
-            for(int i=0; i<p.getLimitStanowisk(); i++){
+            for(int i=0; i<p.getLimitStanowisk(); i++)
+            {
                 Object[] dane = {i+1, 
                     p.getStanowisko(i).getProducent(),
                     p.getStanowisko(i).getMonitorRozdzielczosc(),
@@ -595,14 +636,16 @@ public class FormMain extends javax.swing.JFrame {
 
             }
         }
-        catch(Exception ex){
+        catch(Exception ex)
+        {
             
         }
         
     }//GEN-LAST:event_ButtonUsunMouseClicked
 
     private void ButtonRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonRefreshMouseClicked
-        for(int i=0; i<p.getLimitStanowisk(); i++){
+        for(int i=0; i<p.getLimitStanowisk(); i++)
+        {
             Object[] dane = {i+1, 
                 p.getStanowisko(i).getProducent(),
                 p.getStanowisko(i).getMonitorRozdzielczosc(),
@@ -682,14 +725,18 @@ public class FormMain extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     
-    public static boolean isInteger(String s) {
+    public static boolean isInteger(String s) 
+    {
         return isInteger(s,10);
     }
 
-    public static boolean isInteger(String s, int radix) {
+    public static boolean isInteger(String s, int radix) 
+    {
         if(s.isEmpty()) return false;
-        for(int i = 0; i < s.length(); i++) {
-            if(i == 0 && s.charAt(i) == '-') {
+        for(int i = 0; i < s.length(); i++) 
+        {
+            if(i == 0 && s.charAt(i) == '-') 
+            {
                 if(s.length() == 1) return false;
                 else continue;
             }
