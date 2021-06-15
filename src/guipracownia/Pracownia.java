@@ -10,6 +10,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.LinkedList;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 
@@ -27,28 +29,22 @@ public class Pracownia implements Cloneable, Serializable{
      */
     private int limitStanowisk;
     /** 
-     * Pole klasy Pracownia zawierające tablicę stanowisk złożoną z obiektów klasy Desktop
+     * Pole klasy Pracownia zawierające listę stanowisk złożoną z obiektów klasy Desktop
      */
-    private Desktop[] stanowiska;
+
+    private LinkedList<Desktop> stanowiska;
 
     /**
      * Konstruktor parametryczny klasy Pracownia
      * @param limitStanowisk limit stanowisk
-     * @param _stanowiska tablica stanowisk
+     * @param _stanowiska lista stanowisk
      */
-    public Pracownia(Desktop[] _stanowiska,int limitStanowisk) 
+    public Pracownia(LinkedList<Desktop> _stanowiska,int limitStanowisk) 
     {
         this.limitStanowisk = limitStanowisk;
         this.liczbaStanowisk = 0;
-        this.stanowiska = new Desktop[limitStanowisk];
-        for(int i=0; i<_stanowiska.length; i++)
-        {
-            this.stanowiska[i] = new Desktop(_stanowiska[i]);
-            liczbaStanowisk++;
-        }
-        for(int i = liczbaStanowisk; i<limitStanowisk; i++){
-            this.stanowiska[i] = new Desktop();
-        }
+        this.stanowiska = new LinkedList<Desktop>(_stanowiska);
+
         
     }
     /**
@@ -59,11 +55,13 @@ public class Pracownia implements Cloneable, Serializable{
     {
         this.limitStanowisk=limitStanowisk;
         this.liczbaStanowisk=0;
-        this.stanowiska = new Desktop[limitStanowisk];
+        this.stanowiska = new LinkedList<Desktop>();
         for(int i=0; i<limitStanowisk; i++)
         {
-            this.stanowiska[i] = new Desktop();
+            this.stanowiska.add(new Desktop());
+
         }
+
     }
 
     /**
@@ -73,9 +71,11 @@ public class Pracownia implements Cloneable, Serializable{
     {
         this.liczbaStanowisk = 0;
         this.limitStanowisk = 0;
+        this.stanowiska = new LinkedList<Desktop>();
         for(int i=0; i<limitStanowisk; i++)
         {
-            this.stanowiska[i] = new Desktop();
+
+            this.stanowiska.add(new Desktop());
         }
         
     }
@@ -87,15 +87,8 @@ public class Pracownia implements Cloneable, Serializable{
     {
         this.liczbaStanowisk = source.liczbaStanowisk;
         this.limitStanowisk = source.limitStanowisk;
-        this.stanowiska = new Desktop[source.limitStanowisk];
-        for(int i=0; i<source.stanowiska.length; i++)
-        {
-            this.stanowiska[i] = new Desktop(source.stanowiska[i]);
-        }
-        for(int i = source.liczbaStanowisk; i<source.limitStanowisk; i++)
-        {
-            this.stanowiska[i] = new Desktop();
-        }
+        this.stanowiska = new LinkedList<Desktop>(source.stanowiska);
+
     }
     /**
      * Metoda dodająca stanowisko do pracowni
@@ -103,60 +96,29 @@ public class Pracownia implements Cloneable, Serializable{
      */
     void dodajStanowisko(Desktop stanowisko)
     {
-        for(int i=0; i<limitStanowisk; i++)
+        if(liczbaStanowisk < limitStanowisk)
         {
-            if(stanowiska[i].equals(new Desktop()))
-            {
-                stanowiska[i] = new Desktop(stanowisko);
-                liczbaStanowisk++;
-                break;
-            }
+            this.stanowiska.add(liczbaStanowisk, stanowisko);
+            this.stanowiska.remove(limitStanowisk);
+            liczbaStanowisk++;
         }
+
+
     }
-     /**
-     * Metoda usuwająca stanowisko do pracowni
-     * @param stanowisko usuwane stanowisko
-     */
-    void usunStanowisko(Desktop stanowisko)
-    {
-        for(int i=0; i<liczbaStanowisk; i++)
-        {
-            if(stanowiska[i].equals(stanowisko))
-            {
-                this.stanowiska[i] = new Desktop();
-                this.liczbaStanowisk--;
-                
-                for(int j= i; j+1<limitStanowisk;j++)
-                {
-                    if(this.stanowiska[j+1]!= null)
-                    {
-                        this.stanowiska[j] = new Desktop(stanowiska[j+1]);
-                        this.stanowiska[j+1]= new Desktop();
-                    }
-                }
-                break;
-            }
-            
-        }
-        
-    }
+ 
     /**
      * Przeciążona metoda usuwająca stanowisko do pracowni
      * @param index numer usuwanego stanowiska
      */
     void usunStanowisko(int index)
     {
+        if(this.liczbaStanowisk>0)
+        {
+            this.stanowiska.remove(index);
+            this.stanowiska.add(new Desktop());
+            this.liczbaStanowisk--;
+        }
 
-        stanowiska[index] = new Desktop();
-        this.liczbaStanowisk--;
-            for(int j= index; j+1<limitStanowisk;j++)
-            {
-                if(this.stanowiska[j+1]!= null)
-                {
-                    this.stanowiska[j] = new Desktop(stanowiska[j+1]);
-                    this.stanowiska[j+1]= new Desktop();
-                }
-            }
         
     }
     /**
@@ -164,11 +126,13 @@ public class Pracownia implements Cloneable, Serializable{
      */
     void listaStanowisk()
     {
-        for(int i = 0; i<liczbaStanowisk; i++)
-        {
-            System.out.println("Stanowisko nr: "+(i+1)+"\n"+stanowiska[i].Info()+"\n");
+        Iterator<Desktop> iter = stanowiska.iterator();
+        int i=0;
+        while(iter.hasNext()){
+            i++;
+            System.out.println("Stanowisko nr: "+(i+1)+"\n"+iter.next().Info()+"\n");
         }
-               
+   
     }
     /**
      * Nadpisana metoda clone interfejsu Cloneable zwracająca sklonowany obiekt klasy Pracownia
@@ -179,11 +143,8 @@ public class Pracownia implements Cloneable, Serializable{
     public Pracownia clone() throws CloneNotSupportedException
     {
         Pracownia cloned = (Pracownia)super.clone();
-        for(int i=0; i<limitStanowisk;i++)
-        {
-            cloned.stanowiska[i] = this.stanowiska[i].clone();
-        }
-        
+        cloned.stanowiska = (LinkedList<Desktop>) this.stanowiska.clone();
+
         return cloned;
     }
     /**
@@ -199,16 +160,14 @@ public class Pracownia implements Cloneable, Serializable{
 //        }
 //        
         String zapis = limitStanowisk +"\n" + liczbaStanowisk +"\n";
-        
-        for(int i=0; i<liczbaStanowisk;i++)
+        Iterator<Desktop> iter = stanowiska.iterator();
+        while(iter.hasNext())
         {
-            
-            zapis+= this.stanowiska[i].getZasilanie() +"\n" + this.stanowiska[i].getCena()+"\n";
-            
-            zapis+= this.stanowiska[i].getMonitorRozdzielczosc() +"\n"+ this.stanowiska[i].getProducent()+"\n";
+            Desktop stan = iter.next();
+            zapis+= stan.getZasilanie() +"\n" + stan.getCena()+"\n";
+            zapis+= stan.getMonitorRozdzielczosc() +"\n"+ stan.getProducent()+"\n";
         }
-
-        
+ 
        PrintWriter outText = new PrintWriter(plik);
        try
        {
@@ -247,6 +206,7 @@ public class Pracownia implements Cloneable, Serializable{
         try
         {
             int i = 0,j=0, k=0; //zmienna pomocnicza
+            Desktop stan = new Desktop();
             while((line = cin.readLine())!=null)
             {
                 //petla czyta po kolei linie z pliku dopoki sie nie skonczy
@@ -254,11 +214,8 @@ public class Pracownia implements Cloneable, Serializable{
                 {
                     this.limitStanowisk = Integer.parseInt(line);
                     i++;
-                    this.stanowiska = new Desktop[limitStanowisk];
-                    for(int n=0;n<this.limitStanowisk;n++)
-                    {
-                        this.stanowiska[n] = new Desktop();
-                    }
+                    this.stanowiska = new LinkedList<Desktop>();
+
                 }
                 else if(i==1)
                 {
@@ -267,31 +224,44 @@ public class Pracownia implements Cloneable, Serializable{
                 }
                 else if(i>1 && k<this.liczbaStanowisk)
                 {
-
+                    
                     switch(j)
                     {
+                        
                         case 0:
-                            
-                            this.stanowiska[k].setZasilanie(Float.parseFloat(line));
+                            stan = new Desktop();
+                            stan.setZasilanie(Float.parseFloat(line));
                             j++;
                             break;
                         case 1:
-                            this.stanowiska[k].setCena(Double.parseDouble(line));
+                            stan.setCena(Double.parseDouble(line));
                             j++;
                             break;
                         case 2:
-                            this.stanowiska[k].setMonitorRozdzielczosc(Integer.parseInt(line));
+                            stan.setMonitorRozdzielczosc(Integer.parseInt(line));
                             j++;
                             break;
                         case 3:
-                            this.stanowiska[k].setProducent(line);
+                            stan.setProducent(line);
                             j=0;
                             k++;
+                            this.stanowiska.add(stan);
                             break;
                                     
                             
                     }
+                    
+                    
                 }
+                else if(k<limitStanowisk)
+                {
+                    for(int x=liczbaStanowisk; x<limitStanowisk; x++)
+                    {
+                        this.stanowiska.add(new Desktop());
+                    }
+                }
+
+
                 
                 //System.out.println(line);
             }
@@ -378,11 +348,8 @@ public class Pracownia implements Cloneable, Serializable{
         
         this.liczbaStanowisk = p.liczbaStanowisk;
         this.limitStanowisk = p.limitStanowisk;
-        this.stanowiska = new Desktop[limitStanowisk];
-        for(int i = 0; i< limitStanowisk; i++)
-        {
-            stanowiska[i] = new Desktop(p.stanowiska[i]);
-        }
+        this.stanowiska = new LinkedList<Desktop>(p.stanowiska);
+
         
         
     }
@@ -425,7 +392,7 @@ public class Pracownia implements Cloneable, Serializable{
     
     public Desktop getStanowisko(int index)
     {
-        return stanowiska[index];
+        return stanowiska.get(index);
     }
     
 

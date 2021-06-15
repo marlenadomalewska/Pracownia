@@ -120,6 +120,7 @@ public class FormMain extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        Tabela.setColumnSelectionAllowed(true);
         Tabela.setRowHeight(20);
         Tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(Tabela);
@@ -506,7 +507,7 @@ public class FormMain extends javax.swing.JFrame {
     private void ButtonLimitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonLimitMouseClicked
         if(isInteger(TextFieldLimit.getText()) && Integer.parseInt(TextFieldLimit.getText())>0)
         {
-
+            
             this.p = new Pracownia(Integer.parseInt(TextFieldLimit.getText()));
             TextFieldLimit.setEnabled(false);
             ButtonLimit.setEnabled(false);
@@ -607,10 +608,10 @@ public class FormMain extends javax.swing.JFrame {
                 model.setRowCount(p.getLimitStanowisk());
             }
         
-            this.TextFieldCena.setText("");
-            this.TextFieldMonitor.setText("");
-            this.TextFieldProducent.setText("");
-            this.TextFieldZasilanie.setText("");
+//            this.TextFieldCena.setText("");
+//            this.TextFieldMonitor.setText("");
+//            this.TextFieldProducent.setText("");
+//            this.TextFieldZasilanie.setText("");
             
         }
 
